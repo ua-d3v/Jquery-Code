@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload Image</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+
+<body>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <div class="btn btn-default btn-file">
+                    <i class="fas fa-image"></i> <span class="h5">Image</span>
+                    <input type="file" name="service_image" id="upload-image" accept="image/*">
+                </div>
+                <p class="help-block">Max. 5MB</p>
+            </div>
+        </div>
+        <div class="col-6 d-none" id="image-display"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#upload-image").on('change', function (e) {
+                $("#image-display").html("");
+                for (var i = 0; i < e.target.files.length; i++) {
+                    if (e.target.files[i].type.includes('image') &&
+                        e.target.files[i].size >= 5000000) {
+                        alert('Image Size should upto 5Mb');
+                        return false;
+                    }
+
+                    if (e.target.files[i].type.includes('image')) {
+                        $("#image-display").append(`<img class="img-fluid" src="` + URL.createObjectURL(e
+                            .target.files[i]) +
+                            `" alt="img" style="max-height:200px; max-width=" 100px">`);
+                    }
+
+                }
+                $("#image-display").removeClass("d-none");
+            });
+        });
+    </script>
+</body>
+
+</html>
